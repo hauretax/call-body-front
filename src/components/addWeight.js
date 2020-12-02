@@ -1,10 +1,11 @@
 import { TextField, Button } from '@material-ui/core'
-import React from 'react'
-import submit from '../myModules/submit'
+import React, { Component } from 'react'
+import {authFetch} from '../myModules/token-auth'
+import addr from '../adress'
 
-class AddWeight extends React.Component {
+class AddWeight extends Component {
   state = {
-    email: "hh",
+    email: "u",
     weight: ""
   }
 
@@ -18,11 +19,15 @@ class AddWeight extends React.Component {
 }
 
   handleSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault();
-    let data =  "email=" + this.state.email +
-                "&weight=" + this.state.weight
-    submit(data, "POST", "http://localhost:3000/api/user/addWeight", this.action)
-  };
+    formSubmitEvent.preventDefault(); 
+    authFetch(addr + '/api/user/addWeight',{
+      headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        body: JSON.stringify(this.state),
+      })
+      .then(r => r.json())
+      .then(this.props.addWeight(this.state.weight))
+  }; 
 
   render() {
     return (

@@ -11,7 +11,7 @@ console.log(data)
 
     // Configurez la requête
     XHR.open(type, adress, true);
-    XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmI5ODNjZTAzMjU3YzRmOThhNzM3OWMiLCJpYXQiOjE2MDYyMzAxMjYsImV4cCI6MTYwNjMxNjUyNn0.w9lhs3EqmLuheKewmnItyYDyGpBH-YCxoads5Z1NX7c" );
 
     XHR.send(data);
 }

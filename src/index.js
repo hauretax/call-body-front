@@ -21,7 +21,7 @@ ReactDOM.render(
       <Route path='/register' component={Register} />
       <Route path='/login' component={Login} />
       <Route path='/home' component={Home} />
-      <Route path='/' component={App} />
+      <Route path='/' component={Register} />
     </Switch>
   </Router>,
   document.getElementById('root')

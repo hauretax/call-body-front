@@ -1,9 +1,11 @@
 import { Checkbox } from '@material-ui/core';
 import React, { Component    } from 'react';
-import submit from '../myModules/submit';
+import { Redirect } from 'react-router-dom';
+import addr from '../adress';
 
 class Register extends Component {  
     state = {
+        r: false,
         email: '',
         name: '',
         password: '',
@@ -22,26 +24,35 @@ class Register extends Component {
         console.log(response)
     }
     
-    handleSubmit = formSubmitEvent => {
+    whatiDo(response) {
+        if (response.status === 400)
+            alert('le mail est dejas utiliser');
+        if (response.status === 201)
+            this.setState({ r: true })
+    }
+
+    handleSubmit = formSubmitEvent => { 
         formSubmitEvent.preventDefault();
-        let data =  "email=" + this.state.email +
-        "&password=" + this.state.password +
-        "&name=" + this.state.name +
-        "&goal=" + this.state.goal +
-        "&age=" + this.state.age +
-        "&type=" + this.state.type +
-        "&calo=" + this.state.calo
-        submit(data, "POST", "http://localhost:3000/auth/signup", this.action)
+        console.log(JSON.stringify(this.state));
+        fetch(addr + '/auth/signup',{
+          headers: { "Content-Type": "application/json" },
+            method: 'POST',
+            body: JSON.stringify(this.state)
+          })
+          .then(r => {this.whatiDo(r)})
     };
 
     render () {
+        console.log(this.state.r);
+        if (this.state.r)
+            return(<Redirect to='/login' />)
         return (
         <div>
             <fieldset>
                 <h1>info perso</h1>
                 <form id="user" action="" method="post" className="form-register" onSubmit={this.handleSubmit}>
                     <div className="form-register">
-                        <label htmlFor="name">Enter youtttr name: </label>
+                        <label htmlFor="name">Enter your name: </label>
                         <input type="text" name="name" id="name" 
                         value={this.state.name} onChange={this.handleChange} required/>
                     </div>
@@ -71,7 +82,9 @@ class Register extends Component {
                         inputProps={{ 'aria-label': 'Checkbox A' }}
                     />
                         <input type="radio" name="type" value = "1" checked={this.state.type === "1"} onChange={this.handleChange}/> 
+                        <label htmlFor="type">homme </label>
                         <input type="radio" name="type" value = "2" checked={this.state.type === "2"} onChange={this.handleChange}/> 
+                        <label htmlFor="type">FEMME </label>
                     </div>
                     <div className="form-register">
                         <label htmlFor= "calo"> metter le nombre de callorie que vous shouaiter manger par jour </label>
@@ -83,6 +96,7 @@ class Register extends Component {
                     </div>
                 </form>
             </fieldset> 
+            <a href="/login"> j' ai dejas un compte </a>
         </div>
         )
 }
