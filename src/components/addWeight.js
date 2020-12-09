@@ -2,6 +2,8 @@ import { TextField, Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import {authFetch} from '../myModules/token-auth'
 import addr from '../adress'
+import './../scenes/add.css'
+
 
 class AddWeight extends Component {
   state = {
@@ -14,10 +16,6 @@ class AddWeight extends Component {
     this.setState({ [name]: value })
   }
 
-  action = (response) => {
-    console.log(response)
-}
-
   handleSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault(); 
     authFetch(addr + '/api/user/addWeight',{
@@ -26,7 +24,7 @@ class AddWeight extends Component {
         body: JSON.stringify(this.state),
       })
       .then(r => r.json())
-      .then(this.props.addWeight(this.state.weight))
+      .then(this.props.add(this.state.weight))
   }; 
 
   render() {
