@@ -1,13 +1,19 @@
-import {component} from 'react';
+import { Component } from 'react';
+import Change from "./Submitable/Change";
 
-class userParam extends Component{
+class UserParam extends Component {
 
-render(){
-    return(
-        <div>zizitesteur</div>
-    )
+    render() {
+        return (
+            <div> change what u need 
+                <Change item="goal"/>
+                <Change item="calo"/>
+            </div>
+
+           
+        )
+    }
+
 }
 
-}
-
-export default userParam
+export default UserParam

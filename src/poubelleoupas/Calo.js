@@ -2,50 +2,47 @@ import React, { Component    } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import {getId, authFetch} from '../myModules/token-auth'
 import addr from '../adress'
-import AddWeight from './addWeight';
+import AddCalo from './AddCalo';
 const date = require('../myModules/getDate')
 
-class ShowWeight extends Component{
+class ShowCalo extends Component{
 state = {
     userId: getId(),
     data: []
 }
 
     // ajout du poids en directe
-add = weight => {
+add = calo => {
   const d = this.state.data
   const time = date.getDate()
-  console.log(d[d.length - 1].date)
   if (d[d.length - 1].date === time){
-    d[d.length - 1].weight = weight;
+    d[d.length - 1].calo += Number(calo);
     this.setState({data:[...d]})
-    console.log(d[d.length - 1].weight)
   }
   else{
-    let neweight = {
+    let newCalo = {
       "date" : time,
-      "weight" : weight,
+      "calo" : calo,
     }
     this.setState({
-      data:[...this.state.data, neweight]
+      data:[...this.state.data, newCalo]
     });
   }
-  //this.setState({ data })
 }
 
 componentDidMount() {
-  authFetch(addr + '/api/user/weight',{
+  authFetch(addr + '/api/user/calo',{
     headers: { "Content-Type": "application/json" },
       method: 'POST',
       body: `{"userId":"`+ getId() + `"}` ,
     })
     .then(r => r.json())
-    .then(data => this.setState({ data: data}) )
-  }
+    .then(data => this.setState({ data: data}))
+}
 
 render(){
     return (
-        <div style={{width:800 , height:400}}>
+        <div style={{width:800 , height:400, margin: 60}}>
           <ResponsiveContainer>
               <LineChart
                 data={this.state.data }
@@ -68,9 +65,9 @@ render(){
                 <Line type="monotone" dataKey="weight" stroke={'#8884d8'} dot={false} />
               </LineChart>
               </ResponsiveContainer>
-              <AddWeight  add = {this.add}/>
+              <AddCalo  add = {this.add}/>
           </div>
     );
   }
 }
-export default ShowWeight
+export default ShowCalo

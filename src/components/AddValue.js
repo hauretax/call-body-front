@@ -5,10 +5,9 @@ import addr from '../adress'
 import './../scenes/add.css'
 
 
-class AddWeight extends Component {
+class AddValue extends Component {
   state = {
     email: "u",
-    weight: ""
   }
 
   handleChange = event => {
@@ -17,21 +16,23 @@ class AddWeight extends Component {
   }
 
   handleSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault(); 
-    authFetch(addr + '/api/user/addWeight',{
+    formSubmitEvent.preventDefault();
+    let tmp = JSON.stringify(this.state)
+    console.log(tmp)
+    authFetch(addr + '/api/user/add'+ this.props.value,{
       headers: { "Content-Type": "application/json" },
         method: 'POST',
-        body: JSON.stringify(this.state),
+        body: tmp,
       })
       .then(r => r.json())
-      .then(this.props.add(this.state.weight))
-  }; 
+      .then(this.props.add(this.state[this.props.value]))
+  };
 
   render() {
     return (
       <div>
-        <form id="add-Wheight" method="post" className="form-register" onSubmit={this.handleSubmit}>
-            <TextField value={this.state.weight} onChange={this.handleChange} id="standard-basic" name="weight" label="entrer une masse" type="number" required/>
+        <form id={'add' + this.props.value} method="post" className="form-register" onSubmit={this.handleSubmit}>
+            <TextField value={this.state.value} name={this.props.value} onChange={this.handleChange} id="standard-basic" label="entrer une masse" type="number" required/>
             <Button type="submit"> add </Button>
         </form>
       </div>
@@ -39,4 +40,4 @@ class AddWeight extends Component {
   }
 }
 
-export default AddWeight
+export default AddValue

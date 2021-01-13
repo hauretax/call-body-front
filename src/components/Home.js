@@ -1,10 +1,10 @@
 import React, { Component    } from 'react';
-import Weight from './Weight';
-import Calo from './Calo'
+import Graphe from './Graphe';
 import {isLoggedIn, logout,getId} from '../myModules/token-auth';
 import {Button, IconButton} from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Redirect } from 'react-router-dom'
+import UserParam from './UserParam';
 
 class Home extends Component { 
     state = {
@@ -35,15 +35,17 @@ class Home extends Component {
            return <Redirect to={`/login`} />
           }
         else{
+            console.log('iciiiiiiiiiiiiiiiiiiiiii')
             return ( 
                 <div>
                     Attention ebauche !! (si rien ne saffiche recharger la page sinons connecter vous)
-                    <Weight />
-                    <Calo  />
+                    <Graphe value='weight' indice='masse (kg)'/>
+                    <Graphe value='calo' indice='calorie'/>
                     <Button color="secondary" onClick={this.clickbait}> logout</Button>
                     <IconButton color="primary" aria-label="upload picture" component="span">
                         <SettingsIcon />
                     </IconButton>
+                    <UserParam/>
                 </div>
             )  
         }  

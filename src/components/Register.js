@@ -91,8 +91,8 @@ class Register extends Component {
                         <input type="number" name="calo" id="calo" required
                         value={this.state.calo} onChange={this.handleChange}/>
                     </div>
-                    <div className="form-register">
-                    <input type="submit" value="c est partie !"/>
+                        <div className="form-register">
+                        <input type="submit" value="c est partie !"/>
                     </div>
                 </form>
             </fieldset> 
