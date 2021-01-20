@@ -23,28 +23,32 @@ componentDidMount() {
     .then(r => r.json())
     .then(data => this.setState({ data: data}) )
   }
-
-  add = calo => {
+//value represente la valeur de val. 
+  add = value => {
+    const val = this.value
     const d = this.state.data
     const time = date.getDate()
     if (d[d.length - 1].date === time){
-      d[d.length - 1].calo += Number(calo);
-      this.setState({data:[...d]})
+        if(val === 'calo')
+          d[d.length - 1].calo += Number(value);
+        else if(val === 'weight')
+          d[d.length - 1].weight = value;
+        this.setState({data:[...d]})
     }
     else{
-      let newCalo = {
+      let newValue = {
         "date" : time,
-        "calo" : calo,
       }
+      newValue[val] = value
       this.setState({
-        data:[...this.state.data, newCalo]
+        data:[...this.state.data, newValue]
       });
     }
   }
 
 render(){
     return (
-        <div style={{width:800 , height:400}}>
+        <div style={{width:800 , height:400, margin: 60}}>
               <ResponsiveContainer>
                 <LineChart
                   data={this.state.data }
