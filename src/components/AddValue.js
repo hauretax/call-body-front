@@ -1,13 +1,14 @@
 import { TextField, Button } from '@material-ui/core'
 import React, { Component } from 'react'
-import {authFetch} from '../myModules/token-auth'
+import {getId, authFetch} from '../myModules/token-auth'
 import addr from '../adress'
 import './../scenes/add.css'
 
 
 class AddValue extends Component {
   state = {
-    email: "u",
+    userId: getId(),
+    email: 'u'  ,
   }
 
   handleChange = event => {

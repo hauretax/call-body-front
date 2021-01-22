@@ -21,7 +21,7 @@ exports.weight = (weight) => {
     }
 
     exports.calo = (calo, d) => {
-        const d = this.state.data
+        //const d = this.state.data
         const time = date.getDate()
         if (d[d.length - 1].date === time){
           d[d.length - 1].calo += Number(calo);

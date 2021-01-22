@@ -8,6 +8,7 @@ import addr from '../../adress';
         value: 10,
     }
     item = this.props.item;
+    
 
     handleChange = event => {
         const { name, value } = event.target
@@ -30,12 +31,16 @@ import addr from '../../adress';
           .then(r => {this.whatiDo(r)})
     };
     render() {
+        let reset
+        if(this.props.reset)
+            reset = <button type="submit" value="reset">reset</button>;
         return (
     <div>
         <form id={"user-" + this.item} className="change-thing" onSubmit={event => this.handleSubmit(event,'/api/user/change')}>
             <input type='number' name = "value"  value={this.state.value} onChange={this.handleChange}/>
             <div>
-                <input type="submit" value="aleess"/>
+                <input type="submit" value="change"/>
+                {reset}
             </div>
         </form>
     </div>
