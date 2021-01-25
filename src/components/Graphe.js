@@ -10,7 +10,6 @@ const date = require('../myModules/getDate')
 class ShowGraph extends Component{
 state = {
     userId: getId(),
-    data: []
 }
 value = this.props.value
 
@@ -47,6 +46,13 @@ componentDidMount() {
   }
 
 render(){
+  if(typeof this.state.data === 'undefined' ||this.state.data === null ){
+    console.log('enffin')
+    return(<div><AddValue  add = {this.add} value={this.value}/></div>)
+ 
+  }
+   else {
+     console.log('yo')
     return (
         <div style={{width:800 , height:400, margin: 60}}>
               <ResponsiveContainer>
@@ -74,6 +80,6 @@ render(){
             <AddValue  add = {this.add} value={this.value}/>
           </div>
     );
-  }
+  }}
 }
 export default ShowGraph
