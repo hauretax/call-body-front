@@ -7,8 +7,7 @@ import './../scenes/add.css'
 
 class AddValue extends Component {
   state = {
-    userId: getId(),
-    email: 'u'  ,
+    userId: getId()
   }
 
   handleChange = event => {

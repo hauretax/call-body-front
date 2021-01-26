@@ -1,6 +1,6 @@
 import React, { Component    } from 'react';
 import Graphe from './Graphe';
-import {isLoggedIn, logout,getId} from '../myModules/token-auth';
+import {isLoggedIn, logout} from '../myModules/token-auth';
 import {Button, IconButton} from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Redirect } from 'react-router-dom'
@@ -16,7 +16,6 @@ class Home extends Component {
     componentDidMount() {
         this.setState ({retry: null});
         this.setState({connected: isLoggedIn()})
-        console.log(getId());
     }
     
 
@@ -27,15 +26,11 @@ class Home extends Component {
     }
     render (){
         //cessit est immonde et doit etre corriger . mais pour le moment flemme (explication sur git kraken)
-        
-        console.log(this.state.connected)
-        console.log(this.state.retry)
         if (!(this.state.connected) && this.state.retry !== 'ok') {
             console.log("error home page : not connected")
            return <Redirect to={`/login`} />
           }
         else{
-            console.log('iciiiiiiiiiiiiiiiiiiiiii')
             return ( 
                 <div>
                     Attention ebauche !! (si rien ne saffiche recharger la page sinons connecter vous)

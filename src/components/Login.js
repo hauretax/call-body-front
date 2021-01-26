@@ -22,8 +22,7 @@ class Login extends React.Component {
 
 
   handleSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault(); 
-    console.log(JSON.stringify(this.state));
+    formSubmitEvent.preventDefault();
     fetch(addr + '/auth/login',{
       headers: { "Content-Type": "application/json" },
         method: 'POST',
@@ -31,8 +30,7 @@ class Login extends React.Component {
       })
       .then(r => r.json())
       .then(token => { 
-        login(token) 
-        console.log(1)
+        login(token)
       })
       .then(() => {this.setState({connected: true})} )/*
    formSubmitEvent.preventDefault();

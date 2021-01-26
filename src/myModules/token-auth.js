@@ -41,7 +41,6 @@ const createTokenProvider = () => {
     };
 
     const isLoggedIn = () => {
-        console.log(!!_token);
         return !!_token;
     };
 

@@ -21,8 +21,6 @@ import addr from '../../adress';
 
     handleSubmit = (formSubmitEvent, test) => { 
         formSubmitEvent.preventDefault();
-        console.log(this.item);
-        console.log(JSON.stringify(this.state));
         authFetch(addr + test,{
           headers: { "Content-Type": "application/json" },
             method: 'POST',

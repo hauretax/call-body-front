@@ -15,7 +15,6 @@ state = {
 add = weight => {
   const d = this.state.data
   const time = date.getDate()
-  console.log(d[d.length - 1].date)
   if (d[d.length - 1].date === time){
     d[d.length - 1].weight = weight;
     this.setState({data:[...d]})
@@ -43,8 +42,6 @@ componentDidMount() {
   }
 
 render(){
-  console.log("and this one")
-  console.log(this.state.data)
     return (
         <div style={{width:800 , height:400}}>
           <ResponsiveContainer>

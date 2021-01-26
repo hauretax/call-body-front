@@ -21,38 +21,42 @@ componentDidMount() {
     })
     .then(r => r.json())
     .then(data => this.setState({ data: data}) )
-  }
+}
 //value represente la valeur de val. 
   add = value => {
     const val = this.value
-    const d = this.state.data
     const time = date.getDate()
-    if (d[d.length - 1].date === time){
-        if(val === 'calo')
-          d[d.length - 1].calo += Number(value);
-        else if(val === 'weight')
-          d[d.length - 1].weight = value;
-        this.setState({data:[...d]})
+    if (typeof this.state.data === 'undefined' || this.state.data === null ){
+      const d = []
+      d[0] = {date : time, [val] : value}
+      this.setState({data:[...d]})
     }
     else{
-      let newValue = {
-        "date" : time,
+      const d = this.state.data
+      if (d[d.length - 1].date === time){
+          if(val === 'calo')
+            d[d.length - 1].calo += Number(value);
+          else if(val === 'weight')
+            d[d.length - 1].weight = value;
+          this.setState({data:[...d]})
       }
-      newValue[val] = value
-      this.setState({
-        data:[...this.state.data, newValue]
-      });
+      else{
+        let newValue = {
+          "date" : time,
+        }
+        newValue[val] = value
+        this.setState({
+          data:[...this.state.data, newValue]
+        });
+      }
     }
   }
 
 render(){
   if(typeof this.state.data === 'undefined' ||this.state.data === null ){
-    console.log('enffin')
     return(<div><AddValue  add = {this.add} value={this.value}/></div>)
- 
   }
    else {
-     console.log('yo')
     return (
         <div style={{width:800 , height:400, margin: 60}}>
               <ResponsiveContainer>

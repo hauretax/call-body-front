@@ -33,7 +33,6 @@ class Register extends Component {
 
     handleSubmit = formSubmitEvent => { 
         formSubmitEvent.preventDefault();
-        console.log(JSON.stringify(this.state));
         fetch(addr + '/auth/signup',{
           headers: { "Content-Type": "application/json" },
             method: 'POST',
@@ -43,7 +42,6 @@ class Register extends Component {
     };
 
     render () {
-        console.log(this.state.r);
         if (this.state.r)
             return(<Redirect to='/login' />)
         return (

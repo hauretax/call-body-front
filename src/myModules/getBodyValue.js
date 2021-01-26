@@ -4,4 +4,3 @@ class BodyValue {
     }
   }
 const test = new BodyValue(88, 0.4, 2)
-console.log(test.caloDay)
