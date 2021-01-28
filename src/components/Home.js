@@ -5,6 +5,8 @@ import {Button, IconButton} from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Redirect } from 'react-router-dom'
 import UserParam from './UserParam';
+import getB from '../myModules/getBodyValue'
+import {getId} from '../myModules/token-auth'
 
 class Home extends Component { 
     state = {
@@ -16,8 +18,10 @@ class Home extends Component {
     componentDidMount() {
         this.setState ({retry: null});
         this.setState({connected: isLoggedIn()})
+        const body = new getB(getId())
     }
     
+
 
     //pour deco la personne
     clickbait = () => {

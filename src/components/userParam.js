@@ -7,7 +7,7 @@ class UserParam extends Component {
         return (
             <div> change what u need 
                 <Change item="goal" type="input"/>
-                <Change item="calogoal" type="input"/>
+                <Change item="calo" type="input"/>
                 <Change item="tauxg" type="input" reset='true'/>
                 <Change item="multa" type="input"/>
                 <Change item="pertp" type="input" reset='true'/>

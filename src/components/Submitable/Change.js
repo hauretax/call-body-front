@@ -16,7 +16,9 @@ import addr from '../../adress';
     }
 
     whatiDo(response) {
-     console.log(response.status)
+
+        console.log(response.status + '{"userId":' + this.state.userId +',"param":"'+this.item +'","nb":"'+this.state.value +'"}')
+
     }
 
     handleSubmit = (formSubmitEvent, test) => { 
@@ -24,7 +26,7 @@ import addr from '../../adress';
         authFetch(addr + test,{
           headers: { "Content-Type": "application/json" },
             method: 'POST',
-            body: '{"email":"u","param":"'+this.item +'","nb":"'+this.state.value +'"}',
+            body: '{"userId":"' + this.state.userId +'","param":"'+this.item +'","nb":"'+this.state.value +'"}',
           })
           .then(r => {this.whatiDo(r)})
     };
