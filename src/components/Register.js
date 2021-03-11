@@ -1,4 +1,3 @@
-import { Checkbox } from '@material-ui/core';
 import React, { Component    } from 'react';
 import { Redirect } from 'react-router-dom';
 import addr from '../adress';
@@ -12,7 +11,6 @@ class Register extends Component {
         goal: '',
         age: '',
         type: '',
-        calo: ''
     }
 
     handleChange = event => {
@@ -73,21 +71,6 @@ class Register extends Component {
                         <label htmlFor="age">Enter your age: </label>
                         <input type="number" name="age" id="age" required
                         value={this.state.age} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-register">
-                    <Checkbox
-                        value="checkedA"
-                        inputProps={{ 'aria-label': 'Checkbox A' }}
-                    />
-                        <input type="radio" name="type" value = "1" checked={this.state.type === "1"} onChange={this.handleChange}/> 
-                        <label htmlFor="type">homme </label>
-                        <input type="radio" name="type" value = "2" checked={this.state.type === "2"} onChange={this.handleChange}/> 
-                        <label htmlFor="type">FEMME </label>
-                    </div>
-                    <div className="form-register">
-                        <label htmlFor= "calo"> metter le nombre de callorie que vous shouaiter manger par jour </label>
-                        <input type="number" name="calo" id="calo" required
-                        value={this.state.calo} onChange={this.handleChange}/>
                     </div>
                         <div className="form-register">
                         <input type="submit" value="c est partie !"/>

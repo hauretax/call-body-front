@@ -4,7 +4,6 @@ const createTokenProvider = () => {
 
     /* Implementation */
     let _token = JSON.parse(localStorage.getItem('REACT_TOKEN_AUTH')) || null;
-
    /* const getExpirationDate = (jwtToken) => {
         if (!jwtToken) {
             return null;

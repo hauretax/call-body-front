@@ -1,8 +1,9 @@
 import React, { Component} from 'react';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, ReferenceLine } from 'recharts';
 import {getId, authFetch} from '../myModules/token-auth'
 import AddValue from './AddValue';
 import addr from '../adress'
+import { green } from '@material-ui/core/colors';
 const date = require('../myModules/getDate')
 //import AddWeight from './addWeight';
 
@@ -21,6 +22,7 @@ componentDidMount() {
     })
     .then(r => r.json())
     .then(data => this.setState({ data: data}) )
+    console.log(this.data)
 }
 //value represente la valeur de val. 
   add = value => {
@@ -53,13 +55,14 @@ componentDidMount() {
   }
 
 render(){
+  console.log(this.state.data)
   if(typeof this.state.data === 'undefined' ||this.state.data === null ){
     return(<div><AddValue  add = {this.add} value={this.value}/></div>)
   }
    else {
     return (
-        <div style={{width:800 , height:400, margin: 60}}>
-              <ResponsiveContainer>
+        <div style={{width:'calc(100% - 20px)', height:400, margin: 60, backgroundColor:green}}>
+              <ResponsiveContainer width="60%" height="100%">
                 <LineChart
                   data={this.state.data }
                   margin={{
@@ -79,9 +82,11 @@ render(){
                   </Label>
                 </YAxis>
                 <Line type="monotone" dataKey={this.value} stroke={'#8884d8'} dot={false} />
+                <ReferenceLine y={90}  stroke="red" />
               </LineChart>
               </ResponsiveContainer>
             <AddValue  add = {this.add} value={this.value}/>
+            {this.props.moreC}
           </div>
     );
   }}
