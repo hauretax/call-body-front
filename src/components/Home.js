@@ -19,8 +19,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.setState({ retry: null });
-        this.setState({ connected: isLoggedIn() })
-        const test = new Bodyvalue(getId())
+        //const test = new Bodyvalue(getId())
         //const body = new getB(getId())
     }
 
@@ -32,8 +31,14 @@ class Home extends Component {
         this.setState({ connected: false });
     }
     render() {
-        return(
-        <div> {localStorage.getItem('weights')} </div>)
+        if (localStorage.getItem('profile') === 'true') {
+            return (
+                <div> {localStorage.getItem('weights')} </div>
+            )
+        }
+        else {
+            return (<Redirect to={`/login`} />)
+        }
         //cessit est immonde et doit etre corriger . mais pour le moment flemme (explication sur git kraken)
        /*if (!(this.state.connected) && this.state.retry !== 'ok') {
             console.log("error home page : not connected")

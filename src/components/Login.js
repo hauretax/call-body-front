@@ -1,8 +1,10 @@
 import { AppBar, TextField, Typography, Button } from '@material-ui/core'
 import { isLoggedIn, login } from '../myModules/token-auth'
 import React from 'react'
-import Home from './Home'
 import addr from '../adress'
+import { Redirect } from 'react-router-dom'
+
+
 
 class Login extends React.Component {
   state = {
@@ -20,12 +22,12 @@ class Login extends React.Component {
   }
 
   setValue = (profile) =>{
-    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('profile', "true");
     localStorage.setItem('goal', JSON.stringify(profile.goal));
     localStorage.setItem('weights', JSON.stringify(profile.weight));
     localStorage.setItem('calories', JSON.stringify(profile.calo));
     console.log(profile.weight);
-
+    window.location.reload();
   }
 
   handleSubmit = formSubmitEvent => {
@@ -50,8 +52,8 @@ submit(data, "POST", "http://localhost:3000/auth/login", this.action)*/
   };
 
   render() {
-    if (this.state.connected) {
-      return <Home ok='ok' />
+    if (localStorage.getItem('profile') === 'true') {
+      return (<Redirect to={`/home`} />)
     }
     return (
       <div>
