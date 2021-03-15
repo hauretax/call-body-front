@@ -15,13 +15,7 @@ state = {
 value = this.props.value
 
 componentDidMount() {
-  authFetch(addr + '/api/user/'+this.value,{
-    headers: { "Content-Type": "application/json" },
-      method: 'POST',
-      body: `{"userId":"`+ getId() + `"}` ,
-    })
-    .then(r => r.json())
-    .then(data => this.setState({ data: data}) )
+  this.setState({data: JSON.parse(localStorage.getItem(this.props.index))});
     console.log(this.data)
 }
 //value represente la valeur de val. 
@@ -56,7 +50,7 @@ componentDidMount() {
 
 render(){
   console.log(this.state.data)
-  if(typeof this.state.data === 'undefined' ||this.state.data === null ){
+  if(!(localStorage.getItem('weights'))){
     return(<div><AddValue  add = {this.add} value={this.value}/></div>)
   }
    else {

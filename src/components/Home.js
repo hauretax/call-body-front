@@ -33,7 +33,30 @@ class Home extends Component {
     render() {
         if (localStorage.getItem('profile') === 'true') {
             return (
-                <div> {localStorage.getItem('weights')} </div>
+                <div> {localStorage.getItem('weights')} 
+                <div>
+                    Attention ebauche !! (si rien ne saffiche recharger la page sinons connecter vous)
+                    <SwitchComponent components={[
+                        {
+                            name: 'calorie',
+                            data: <Graphe index = 'calories' value='calo' indice='calorie' />,
+                        },
+                        {
+                            name: 'masse',
+                            data: <Graphe index = 'weights' value='weight' indice='masse (kg)' />,
+                        },
+                        {
+                            name: 'samarchepasptdr',
+                            data: 'lol',
+                        },
+                    ]} />
+
+                    <Button color="secondary" onClick={this.clickbait}> logout</Button>
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                        <SettingsIcon />
+                    </IconButton>
+                    <UserParam />
+                </div></div>
             )
         }
         else {

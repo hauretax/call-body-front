@@ -96,6 +96,7 @@ export const createAuthProvider = () => {
     
     const logout = () => {
         tokenProvider.setToken(null);
+        localStorage.clear();
     };
 
     const authFetch = async (input, init) => {
