@@ -8,13 +8,14 @@ export default class SwitchComponent extends Component {
     }
     switchM = (e) => {
         this.setState({ show: e.target.id })
+        console.log(this.props.components[this.state.show].data);
     }
 
     render() {
         return (
             <div>
-                <div>{this.props.components[this.state.show || 0 ].data}</div>
-                {this.props.test}
+                <div>{this.props.components[this.state.show].data}</div>
+                <p> {this.state.show}</p>
                 {this.props.components.map((item, id) => (
                     <button onClick={this.switchM}key={id} id={id}>{item.name}</button>
                 ))}

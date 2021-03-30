@@ -36,20 +36,23 @@ class Home extends Component {
                 <div> {localStorage.getItem('weights')} 
                 <div>
                     Attention ebauche !! (si rien ne saffiche recharger la page sinons connecter vous)
-                    <SwitchComponent components={[
+                    
+                    <Graphe graphe={[
                         {
                             name: 'calorie',
-                            data: <Graphe index = 'calories' value='calo' indice='calorie' />,
+                            index: 'calories',
+                            value: 'calo',
+                            indice: 'calorie' ,
                         },
                         {
                             name: 'masse',
-                            data: <Graphe index = 'weights' value='weight' indice='masse (kg)' />,
+                            index: 'weights',
+                            value: 'weight',
+                            indice: 'masse (kg)' ,
                         },
-                        {
-                            name: 'samarchepasptdr',
-                            data: 'lol',
-                        },
-                    ]} />
+                        ]} />
+
+                    
 
                     <Button color="secondary" onClick={this.clickbait}> logout</Button>
                     <IconButton color="primary" aria-label="upload picture" component="span">

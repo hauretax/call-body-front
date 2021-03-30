@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, ReferenceLine } from 'recharts';
-import {getId, authFetch} from '../myModules/token-auth'
+import { getId, authFetch } from '../myModules/token-auth'
 import AddValue from './AddValue';
 import addr from '../adress'
 import { green } from '@material-ui/core/colors';
@@ -8,81 +8,106 @@ const date = require('../myModules/getDate')
 //import AddWeight from './addWeight';
 
 
-class ShowGraph extends Component{
-state = {
+class ShowGraph extends Component {
+  state = {
     userId: getId(),
-}
-value = this.props.value
+  }
+  show = 0;
+  value = this.props.graphe[this.show].value
+  indice = this.props.graphe[this.show].indice
+  name = this.props.graphe[this.show].name
+  componentDidMount() {
+    this.setState({ data: JSON.parse(localStorage.getItem(this.props.graphe[this.show].index)) });
+    this.setState({ graphe: this.props.graphe[this.show] });
 
-componentDidMount() {
-  this.setState({data: JSON.parse(localStorage.getItem(this.props.index))});
-    console.log(this.data)
-}
-//value represente la valeur de val. 
+  }
+  //value represente la valeur de val. 
   add = value => {
     const val = this.value
     const time = date.getDate()
-    if (typeof this.state.data === 'undefined' || this.state.data === null ){
+    if (typeof this.state.data === 'undefined' || this.state.data === null) {
       const d = []
-      d[0] = {date : time, [val] : value}
-      this.setState({data:[...d]})
+      d[0] = { date: time, [val]: value }
+      this.setState({ data: [...d] })
     }
-    else{
+    else {
       const d = this.state.data
-      if (d[d.length - 1].date === time){
-          if(val === 'calo')
-            d[d.length - 1].calo += Number(value);
-          else if(val === 'weight')
-            d[d.length - 1].weight = value;
-          this.setState({data:[...d]})
+      if (d[d.length - 1].date === time) {
+        if (val === 'calo')
+          d[d.length - 1].calo += Number(value);
+        else if (val === 'weight')
+          d[d.length - 1].weight = value;
+        this.setState({ data: [...d] })
       }
-      else{
+      else {
         let newValue = {
-          "date" : time,
+          "date": time,
         }
         newValue[val] = value
         this.setState({
-          data:[...this.state.data, newValue]
+          data: [...this.state.data, newValue]
         });
       }
     }
   }
 
-render(){
-  console.log(this.state.data)
-  if(!(localStorage.getItem('weights'))){
-    return(<div><AddValue  add = {this.add} value={this.value}/></div>)
+  switchM = (e) => {
+    this.show = e.target.id;
+    this.setState({ data: JSON.parse(localStorage.getItem(this.props.graphe[this.show].index)) });
+    this.value = this.props.graphe[this.show].value
+    this.indice = this.props.graphe[this.show].indice
+    this.name = this.props.graphe[this.show].name
   }
-   else {
-    return (
-        <div style={{width:'calc(100% - 20px)', height:400, margin: 60, backgroundColor:green}}>
-              <ResponsiveContainer width="60%" height="100%">
-                <LineChart
-                  data={this.state.data }
-                  margin={{
-                    top: 16,
-                    right: 16,
-                    bottom: 0,
-                    left: 24,
-                  }}
+
+  render() {
+    console.log(this.state.data)
+    if (!(localStorage.getItem('weights'))) {
+      return (<div><AddValue add={this.add} value={this.value} />
+        <div>
+          <p> {this.show}</p>
+          {this.props.components.map((item, id) => (
+            <button onClick={this.switchM} key={id} id={id}>{item.name}</button>
+          ))}
+        </div>
+      </div>)
+    }
+    else {
+      return (
+        <div style={{ width: 'calc(100% - 20px)', height: 400, margin: 60, backgroundColor: green }}>
+          <button onClick={this.clickbait}> heho</button>
+          <ResponsiveContainer width="60%" height="100%">
+            <LineChart
+              data={this.state.data}
+              margin={{
+                top: 16,
+                right: 16,
+                bottom: 0,
+                left: 24,
+              }}
+            >
+              <XAxis dataKey="date" stroke={'#8884d8'} />
+              <YAxis stroke={'#8884d8'}>
+                <Label
+                  angle={270}
+                  position="left"
                 >
-                <XAxis dataKey="date" stroke={'#8884d8'} />
-                <YAxis stroke={'#8884d8'}>
-                  <Label
-                    angle={270}
-                    position="left"
-                  >
-                    {this.props.indice}
-                  </Label>
-                </YAxis>
-                <Line type="monotone" dataKey={this.value} stroke={'#8884d8'} dot={false} />
-                <ReferenceLine y={90}  stroke="red" />
-              </LineChart>
-              </ResponsiveContainer>
-            <AddValue  add = {this.add} value={this.value}/>
-            {this.props.moreC}
-          </div>
-    );
-  }}
+                  {this.indice}
+                </Label>
+              </YAxis>
+              <Line type="monotone" dataKey={this.value} stroke={'#8884d8'} dot={false} />
+              <ReferenceLine y={90} stroke="red" />
+            </LineChart>
+          </ResponsiveContainer>
+          <AddValue add={this.add} value={this.value} />
+          {this.props.moreC}
+
+          <p> {this.show}</p>
+          {this.props.graphe.map((item, id) => (
+            <button onClick={this.switchM} key={id} id={id}>{item.name}</button>
+          ))}
+        </div>
+      );
+    }
+  }
 }
 export default ShowGraph
