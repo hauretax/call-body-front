@@ -25,7 +25,11 @@ class AddValue extends Component {
         body: tmp,
       })
       .then(r => r.json())
-      .then(this.props.add(this.state[this.props.value]))
+      .then((token) => {
+        console.log(token)
+        console.log(this.state[this.props.value])
+        this.props.add(token)
+      })//this.props.add(this.state[this.props.value]))
   };
 
   render() {

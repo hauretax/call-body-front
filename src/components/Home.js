@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Graphe from './Graphe';
-import SwitchComponent from './SwitchComponent';
-import { isLoggedIn, logout, getId } from '../myModules/token-auth';
+import { logout} from '../myModules/token-auth';
 import { Button, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Redirect } from 'react-router-dom'
 import UserParam from './UserParam';
-import Bodyvalue from '../myModules/getBodyValue'
+import './styles/Home.css'
+
 //import getB from '../myModules/getBodyValue'
 //import {getId} from '../myModules/token-auth'
 
 class Home extends Component {
     state = {
         retry: this.props.ok,
-        connected: true
+        connected: true,
+        vu : "hidden",
     }
+
     //pour verifier si la personne est co
 
     componentDidMount() {
@@ -30,6 +32,15 @@ class Home extends Component {
         logout();
         this.setState({ connected: false });
     }
+
+    //afficher ou non les param
+    param = () =>{
+        if (this.state.vu === "vu")
+            this.setState({ vu: 'hidden'})
+        else
+            this.setState({ vu: 'vu'})
+    }
+
     render() {
         if (localStorage.getItem('profile') === 'true') {
             return (
@@ -53,17 +64,22 @@ class Home extends Component {
                         ]} />
 
                     
-
-                    <Button color="secondary" onClick={this.clickbait}> logout</Button>
-                    <IconButton color="primary" aria-label="upload picture" component="span">
-                        <SettingsIcon />
-                    </IconButton>
-                    <UserParam />
-                </div></div>
+                    <div id = "users-tools">
+                        <Button color="secondary" onClick={this.clickbait}> logout</Button>
+                        <div onClick={this.param}>
+                            <IconButton color="primary" 
+                             aria-label="upload picture" component="span">
+                                <SettingsIcon/>
+                            </IconButton>
+                        </div>
+                        <UserParam  c= {this.state.vu} />
+                    </div>
+                </div>
+            </div>
             )
         }
         else {
-            return (<Redirect to={`/login`} />)
+            return (<Redirect to={`/login`}/>)
         }
         //cessit est immonde et doit etre corriger . mais pour le moment flemme (explication sur git kraken)
        /*if (!(this.state.connected) && this.state.retry !== 'ok') {

@@ -1,0 +1,9 @@
+.hidden{
+    display: none;
+    background-color: aquamarine;
+}
+
+.vu{
+    display: inline;
+    background-color: aquamarine;
+}

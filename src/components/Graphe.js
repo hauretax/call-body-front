@@ -23,7 +23,16 @@ class ShowGraph extends Component {
   }
   //value represente la valeur de val. 
   add = value => {
-    const val = this.value
+    const d = this.state.data || []
+    if (value.date === d[d.length - 1].date){
+      d[d.length-1] = value
+      this.setState({ data: [...d] })
+    }
+    else{
+      d[d.length] = value
+      this.setState({ data: [...d] })
+    }
+    /* const val = this.value
     const time = date.getDate()
     if (typeof this.state.data === 'undefined' || this.state.data === null) {
       const d = []
@@ -33,6 +42,7 @@ class ShowGraph extends Component {
     else {
       const d = this.state.data
       if (d[d.length - 1].date === time) {
+        //fonctionnement as changer avec un props suplementaire (add / replace)
         if (val === 'calo')
           d[d.length - 1].calo += Number(value);
         else if (val === 'weight')
@@ -48,12 +58,12 @@ class ShowGraph extends Component {
           data: [...this.state.data, newValue]
         });
       }
-    }
+    }*/
   }
 
   switchM = (e) => {
     this.show = e.target.id;
-    this.setState({ data: JSON.parse(localStorage.getItem(this.props.graphe[this.show].index)) });
+    this.setState({ data: JSON.parse(localStorage.getItem(this.props.graphe[this.show].index))});
     this.value = this.props.graphe[this.show].value
     this.indice = this.props.graphe[this.show].indice
     this.name = this.props.graphe[this.show].name
